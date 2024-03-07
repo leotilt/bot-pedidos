@@ -1,9 +1,10 @@
 const twilio = require("twilio");
-const database = require("./config/database");
+const database = require("../config/database");
 
 // Configuração do Twilio
 const twilioClient = twilio(database.accountSid, database.authToken);
 
+//função saudação twillo
 function handleIncomingMessage(req, res) {
   const twilioSignature = req.headers["x-twilio-signature"];
 
