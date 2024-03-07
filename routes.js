@@ -1,7 +1,9 @@
 const express = require("express");
-const router = express.Router();
-const twilioController = require("../controllers/twilioController");
+const controller = require("./controller/twilioController");
 
-router.post("/", twilioController.handleIncomingMessage);
+const router = express.Router();
+
+// Rota para lidar com mensagens recebidas
+router.post("/", controller.handleIncomingMessage);
 
 module.exports = router;
