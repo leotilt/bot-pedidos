@@ -1,5 +1,5 @@
 const express = require("express");
-const controller = require("./controller/twilioController");
+const controller = require("./controllers/twilioController");
 
 const router = express.Router();
 
