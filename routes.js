@@ -3,7 +3,7 @@ const controller = require("./controller/twilioController");
 
 const router = express.Router();
 
-// Rota para lidar com mensagens recebidas
+// Rota mensagem recebida
 router.post("/", controller.handleIncomingMessage);
 
 module.exports = router;
