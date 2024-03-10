@@ -1,11 +1,11 @@
 // mongoauthDB.js
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-// Defina o nome do banco de dados que você deseja usar
-const dbName = "Cluster0";
+const user = "leonardodevdias";
+const password = "KmohLBJyQ7ztzN0N";
 
 // Construa a string de conexão usando as constantes
-const uri = `mongodb+srv://leonardodevdias:KmohLBJyQ7ztzN0N@cluster0.tb6fbpl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://${user}:${password}@cluster0.tb6fbpl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -32,7 +32,5 @@ async function run() {
 }
 
 module.exports = {
-  uri,
-  dbName,
   run,
 };
