@@ -1,0 +1,15 @@
+{
+  "_id": {
+    "$oid": "65f5ce691b2d5969d0d2fe78"
+  },
+  "numeroPedido": 199119,
+  "remessa": "123456",
+  "dataCompra": "2024-03-15T12:00:00Z",
+  "celulares": [
+    { "modelo": "iPhone 13" },
+    { "modelo": "iPhone 13 Pro Max" },
+    { "modelo": "iPhone 15" }
+  ],
+  "codigoRastreio": null,
+  "status": "Em andamento"
+}

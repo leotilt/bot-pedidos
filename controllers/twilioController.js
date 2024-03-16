@@ -1,23 +1,22 @@
-// twilioController.js
+const { sendGreetingMessage } = require("../services/sendGreetingMessage");
+const { searchOrderInMongoDB } = require("../services/searchOrderInMongoDB");
 
-const twilio = require("twilio");
-const database = require("../config/database");
+let isFirstMessage = true;
 
-// Configuração do Twilio
-const twilioClient = twilio(database.accountSid, database.authToken);
+async function processIncomingMessage(req, res) {
+  const userMessage = req.body.Body ? req.body.Body.trim() : "";
 
-// Função para lidar com mensagens recebidas
-async function handleIncomingMessage(req, res) {
-  const twiml = new twilio.twiml.MessagingResponse();
+  if (isFirstMessage) {
+    isFirstMessage = false;
+    await sendGreetingMessage(res);
+    return;
+  }
 
-  // Responder com uma mensagem simples
-  twiml.message("Oi, qual o seu pedido?");
-
-  // Enviar a resposta
-  res.set("Content-Type", "text/xml");
-  res.send(twiml.toString());
+  if (userMessage.toLowerCase() === "oi") {
+    sendGreetingMessage(res);
+  } else {
+    await searchOrderInMongoDB(req, res, userMessage);
+  }
 }
 
-module.exports = {
-  handleIncomingMessage,
-};
+module.exports = { processIncomingMessage };
