@@ -1,8 +1,8 @@
 {
-  "_id": {
-    "$oid": "65f5ce691b2d5969d0d2fe78"
-  },
+  "_id": "",
   "numeroPedido": 199119,
+  "nome": "João da Silva",
+  "cpf": "123.456.789-00",
   "remessa": "123456",
   "dataCompra": "2024-03-15T12:00:00Z",
   "celulares": [

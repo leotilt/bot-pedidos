@@ -1,27 +1,34 @@
 const twilio = require("twilio");
-const { connectToDatabase } = require("../config/mongoDB");
+const { findOnePedido } = require("../config/mongoDB.js");
+const formatDate = require("../utils/utils.js");
 
 async function searchOrderInMongoDB(req, res, userMessage) {
   const twiml = new twilio.twiml.MessagingResponse();
 
   try {
-    const db = await connectToDatabase();
-    const pedidosCollection = db.collection("pedidos");
-    const pedido = await pedidosCollection.findOne({
-      numeroPedido: parseInt(userMessage),
-    });
+    let pedido;
+    if (!isNaN(userMessage)) {
+      pedido = await findOnePedido(userMessage);
+    } else {
+      pedido = await findOnePedidoByCPF(userMessage);
+    }
 
     if (pedido) {
-      let message = `Detalhes do Pedido ${userMessage}:\n`;
-      message += `*Status*: ${pedido.status}\n`;
-      message += `Data da Compra: ${pedido.dataCompra}\n`;
+      let message = "Detalhes do pedido:\n\n";
+      message += "🏷️ Número do Pedido: " + pedido.numeroPedido + "\n";
+      message +=
+        "👤 CPF: " + (pedido.cpf ? pedido.cpf : "Não disponível") + "\n";
+      message += "⏳ Status: " + pedido.status + "\n";
+
+      message += "📅 Data da Compra: " + formatDate(pedido.dataCompra) + "\n";
       message += "Celulares:\n";
       pedido.celulares.forEach((celular, index) => {
-        message += `${index + 1}. Modelo: ${celular.modelo}\n`;
+        message += index + 1 + ". Modelo: " + celular.modelo + "\n";
       });
+
       twiml.message(message);
     } else {
-      twiml.message(`Pedido ${userMessage} não encontrado.`);
+      twiml.message("Pedido " + userMessage + " não encontrado.");
     }
   } catch (error) {
     console.error("Erro ao buscar o pedido:", error);
@@ -32,6 +39,12 @@ async function searchOrderInMongoDB(req, res, userMessage) {
     res.set("Content-Type", "text/xml");
     res.send(twiml.toString());
   }
+}
+
+// Função para buscar pedido pelo CPF
+async function findOnePedidoByCPF(cpf) {
+  const pedido = await findOnePedido({ cpf });
+  return pedido;
 }
 
 module.exports = { searchOrderInMongoDB };
