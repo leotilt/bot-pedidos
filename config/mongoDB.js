@@ -7,13 +7,11 @@ async function connectToDatabase() {
   return client.db("bot-pedidos");
 }
 
-async function findOnePedido(userMessage) {
+async function findPedidosByCPF(cpf) {
   const db = await connectToDatabase();
   const pedidosCollection = db.collection("pedidos");
-  const pedido = await pedidosCollection.findOne({
-    numeroPedido: parseInt(userMessage),
-  });
-  return pedido;
+  const pedidos = await pedidosCollection.find({ cpf }).toArray();
+  return pedidos;
 }
 
-module.exports = { findOnePedido };
+module.exports = { findPedidosByCPF };
