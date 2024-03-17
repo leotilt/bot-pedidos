@@ -7,7 +7,7 @@ function formatDate(dateString) {
 }
 
 function hideCPF(cpf) {
-  return cpf.substring(0, 5) + "XXXXX";
+  return cpf.substring(0, 5) + "XXXXXX";
 }
 
 function isValidCPF(cpf) {
