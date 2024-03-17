@@ -12,7 +12,7 @@ async function processIncomingMessage(req, res) {
     return;
   }
 
-  if (userMessage.toLowerCase() === "oi") {
+  if (userMessage.toLowerCase() === "") {
     sendGreetingMessage(res);
   } else {
     await searchOrderInMongoDB(req, res, userMessage);

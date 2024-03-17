@@ -19,9 +19,10 @@ async function searchOrderInMongoDB(req, res, userMessage) {
       const twiml = new twilio.twiml.MessagingResponse();
       pedidos.forEach((pedido, index) => {
         let message = "Detalhes do pedido " + (index + 1) + ":\n\n";
+        message += "👤 Nome: " + pedido.nome + "\n";
         message += "🏷️ Número do Pedido: " + pedido.numeroPedido + "\n";
         message +=
-          "👤 CPF: " +
+          "🔒 CPF: " +
           (pedido.cpf ? hideCPF(pedido.cpf) : "Não disponível") +
           "\n";
         message += "⏳ Status: " + pedido.status + "\n";
