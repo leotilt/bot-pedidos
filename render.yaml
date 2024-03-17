@@ -1,5 +1,0 @@
-services:
-  - name: bot-pedidos-api
-    env: node
-    buildCommand: npm ci && npm run build
-    startCommand: npm start
