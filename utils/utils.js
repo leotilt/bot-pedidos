@@ -6,4 +6,8 @@ function formatDate(dateString) {
   return `${day}/${month}/${year}`;
 }
 
-module.exports = formatDate;
+function hideCPF(cpf) {
+  return cpf.substring(0, 5) + "XXXXX";
+}
+
+module.exports = { formatDate, hideCPF };

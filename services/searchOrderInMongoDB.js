@@ -1,6 +1,6 @@
 const twilio = require("twilio");
 const { findOnePedido } = require("../config/mongoDB.js");
-const formatDate = require("../utils/utils.js");
+const { formatDate, hideCPF } = require("../utils/utils.js");
 
 async function searchOrderInMongoDB(req, res, userMessage) {
   const twiml = new twilio.twiml.MessagingResponse();
@@ -17,7 +17,9 @@ async function searchOrderInMongoDB(req, res, userMessage) {
       let message = "Detalhes do pedido:\n\n";
       message += "🏷️ Número do Pedido: " + pedido.numeroPedido + "\n";
       message +=
-        "👤 CPF: " + (pedido.cpf ? pedido.cpf : "Não disponível") + "\n";
+        "👤 CPF: " +
+        (pedido.cpf ? hideCPF(pedido.cpf) : "Não disponível") +
+        "\n";
       message += "⏳ Status: " + pedido.status + "\n";
 
       message += "📅 Data da Compra: " + formatDate(pedido.dataCompra) + "\n";
@@ -46,5 +48,7 @@ async function findOnePedidoByCPF(cpf) {
   const pedido = await findOnePedido({ cpf });
   return pedido;
 }
+
+// Função para ocultar os primeiros dígitos do CPF
 
 module.exports = { searchOrderInMongoDB };
