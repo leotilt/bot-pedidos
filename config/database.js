@@ -1,6 +1,3 @@
-const user = "leonardodevdias";
-const password = "KmohLBJyQ7ztzN0N";
-
 require("dotenv").config();
 
 module.exports = {
