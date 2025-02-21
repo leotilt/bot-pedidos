@@ -62,9 +62,15 @@ O banco de dados espera documentos com a seguinte estrutura:
 
 - ✅ Validação de CPF
 - 📱 Consulta de múltiplos pedidos
-- �� Mascaramento de CPF nas respostas
+- 🔒 Mascaramento de CPF nas respostas
 - 📅 Formatação de datas
 - 💬 Mensagens interativas
+
+## 📸 Demonstração
+
+![Demonstração do Bot](./assets/demo-bot.png)
+
+_Exemplo de interação com o bot mostrando consulta de pedidos via WhatsApp_
 
 ## 🚀 Como Usar
 
